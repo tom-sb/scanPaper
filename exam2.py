@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+
 from matplotlib import pyplot as plt
 
 class Image:
@@ -14,11 +15,11 @@ class Image:
 		imageGray = cv.cvtColor(self.image,cv.COLOR_BGR2GRAY)
 		return imageGray
 	
-	def makePadding(self, pixBorder = 1, valPix = 0):
+	def makePadding(self, pixBorder, valPix = 0):
 		self.beGray()
-		newMatrix = [[]for i in range(int(self.row + (pixBorder*2)))]
-		for i in range(self.row+(pixBorder*2)):
-			for j in range(self.col+(pixBorder*2)):
+		newMatrix = [[]for i in range(int(self.row + (pixBorder)))]
+		for i in range(self.row+(pixBorder)):
+			for j in range(self.col+(pixBorder)):
 				if(i == 0 or j == 0):
 					newMatrix[i].append(valPix)
 				elif(i == self.row+1 or j ==self.col+1):
@@ -27,8 +28,10 @@ class Image:
 					newMatrix[i].append(self.image[i-1,j-1])
 		return newMatrix
 	
-	def GaussianFunc(self, x, y)
-		return 
+	def GaussianFunc(self, x, y):
+		num = np.exp(((x*x)+(y*y))/2*(1.8*1.8))
+		den = 2*np.pi*(1.8*1.8)
+		print(num)
 
 	def makeKernel(self, kernelSize):
 		kernelMatrix = [[]for i in range(kernelSize)]
@@ -37,8 +40,8 @@ class Image:
 				kernelMatrix[i].append(self.GaussianFunc(i,j))
 		return kernelMatrix
 
-	def convolution(self, kernelSize = 3, valPix):
-		self.makePadding(kernelSize,valpix)
+	def convolution(self, kernelSize, valPix):
+		self.makePadding(kernelSize-1,valPix)
 		self.makeKernel(kernelSize)
 
 		
@@ -59,4 +62,4 @@ img = cv.imread('img1.png')
 
 
 img1 = Image(img)
-img1.bePadding()
+img1.convolution(3,0)
