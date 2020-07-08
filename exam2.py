@@ -15,11 +15,11 @@ class Image:
             imageGray = cv.cvtColor(self.image,cv.COLOR_BGR2GRAY)
             return imageGray
 
-        def cannyEdgeDetection(self,kernel=(5,5),sigma=0,minTh=30,maxTh=50):
+        def cannyEdgeDetection(self,kernel=(5,5),sigma=0,minTh=100,maxTh=200):
             #Gaussian blurr
             Gblurr = cv.GaussianBlur(self.beGray(),kernel,sigma)
 
-            Cimg = cv.Canny(Gblurr,minTh,maxTh)
+            Cimg = cv.Canny(self.beGray(),minTh,maxTh)
             return Cimg
 
         def findcontours(self,edge):
@@ -102,16 +102,17 @@ class Image:
         def makeCanny(self):
                 imageCanny = cv.Canny(self.image, 75, 100)
                 return imageCanny
-        
-img = cv.imread("img2.jpeg")
-img = cv.resize(img,(1300,800))
-orig = img.copy()
 
-img1 = Image(img)
-canny = img1.cannyEdgeDetection()
-target = img1.findcontours(canny)
-approx = img1.mapper(target)
-dst = img1.transform(approx,orig)
-plt.imshow(dst,vmin=0,vmax=255)
-plt.show()
+if __name__ == '__main__':
+    img = cv.imread('img1.png')
+    #img = cv.resize(img,(1300,800))
+    orig = img.copy()
+
+    img1 = Image(img)
+    canny = img1.cannyEdgeDetection()
+    target = img1.findcontours(canny)
+    approx = img1.mapper(target)
+    dst = img1.transform(approx,orig)
+    plt.imshow(dst)
+    plt.show()
 
