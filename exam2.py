@@ -29,7 +29,7 @@ class Image:
 		return newMatrix
 	
 	def GaussianFunc(self, x, y):
-		num = np.exp(((x*x)+(y*y))/2*(1.8*1.8))
+		num = np.exp(((x*x)+(y*y))*1/2*(1.8*1.8))
 		den = 2*np.pi*(1.8*1.8)
 		print(num)
 
@@ -43,8 +43,6 @@ class Image:
 	def convolution(self, kernelSize, valPix):
 		self.makePadding(kernelSize-1,valPix)
 		self.makeKernel(kernelSize)
-
-		
 
 	def beBlur(self):
 		self.image = cv.GaussianBlur(self.image, (5,5), 0)
@@ -62,4 +60,4 @@ img = cv.imread('img1.png')
 
 
 img1 = Image(img)
-img1.convolution(3,0)
+img1.convolution(0,0)
