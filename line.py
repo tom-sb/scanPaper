@@ -1,5 +1,5 @@
 from matplotlib import pyplot as plt
-from figu import formA,knn
+from tools import formA,knn
 import cv2 as cv
 import numpy as np
 from exam2 import Image
@@ -7,26 +7,33 @@ from exam2 import Image
 class LineBuilder:
     def __init__(self, line,_x,_y,img1):
         self.line = line
-        self.xs = x 
-        self.ys = y
+        self.xs = _x 
+        self.ys = _y
         self.img1 = img1
+        self.eventkey=''
     def connect(self):
         "conectar todos los eventos"
         self.cidpress = self.line.figure.canvas.mpl_connect(
                 'button_press_event',self.on_press)
-    
+        self.keypress = self.line.figure.canvas.mpl_connect(
+                'key_press_event',self.key_press)
+
+    def key_press(self, event):
+        self.eventkey=event.key
+        if self.eventkey == 'enter':
+            points = np.column_stack((self.xs,self.ys))
+            approx = np.array(points,dtype=np.float32)
+            imgfinal = self.img1.transform(approx[:4,:4]);
+            cv.imwrite('outimg.png',imgfinal)
+            plt.imshow(imgfinal)
+            self.line.figure.canvas.draw()
+
     def on_press(self, event):
 
         if event.inaxes != self.line.axes: return
+        if self.eventkey == 'enter': return
         eventx, eventy = event.xdata, event.ydata
-        if event.button == 1:
-            self.left_button(eventx,eventy)
-        else:
-            approx = np.column_stack((self.xs,self.ys))
-            approx = np.array(approx,dtype=np.float32)
-            imgfinal = self.img1.transform(approx[:4,:4]);
-            plt.imshow(imgfinal)
-            #self.disconnect()
+        self.left_button(eventx,eventy)
 
     def left_button(self,eventx,eventy):
         #vecino cercano a el evento
@@ -44,6 +51,7 @@ class LineBuilder:
     def disconnect(self):
         self.line.figure.canvas.mpl_disconnect(self.cidpress)
 
+"""
 img = cv.imread('img1.png')
 orig = img.copy()
 img1 = Image(img)
@@ -54,9 +62,10 @@ approx = img1.mapper(target)
 x,y = formA(np.array(approx))
 plt.imshow(img,zorder=0)
 line, = plt.plot(x,y,'.-')
+plt.axis('off')
 
 linebuilder = LineBuilder(line,x,y,img1)
 linebuilder.connect()
 
 plt.show()
-
+"""
