@@ -6,6 +6,7 @@ from matplotlib import pyplot as plt
 class Image:
         def __init__(self,_image):
                 self.image = _image#.astype(int)
+                self.original = _image.copy()
                 self.row = self.image.shape[0]
                 self.col = self.image.shape[1]
 
@@ -53,13 +54,13 @@ class Image:
 
             return np.sqrt(d) 
 
-        def transform(self,approx,orig):
+        def transform(self,approx):
             heigth = int(self.distance(approx[0],approx[1]))
             width = int(self.distance(approx[1],approx[2]))
             pts=np.float32([[0,0],[heigth,0],[heigth,width],[0,width]])  
             
             op=cv.getPerspectiveTransform(approx,pts)  
-            dst=cv.warpPerspective(orig,op,(heigth,width))
+            dst=cv.warpPerspective(self.original,op,(heigth,width))
             return dst
 
         def makePadding(self, pixBorder):
@@ -106,13 +107,13 @@ class Image:
 if __name__ == '__main__':
     img = cv.imread('img1.png')
     #img = cv.resize(img,(1300,800))
-    orig = img.copy()
 
     img1 = Image(img)
     canny = img1.cannyEdgeDetection()
     target = img1.findcontours(canny)
     approx = img1.mapper(target)
-    dst = img1.transform(approx,orig)
+    print(approx)
+    dst = img1.transform(approx)
     plt.imshow(dst)
     plt.show()
 
