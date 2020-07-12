@@ -14,17 +14,17 @@ def main():
     points = scanner.mapper(target)
 
     xs, ys = formA(np.array(points))
-    plt.imshow(img,zorder=0)
-    line, = plt.plot(xs,ys,'o-')
+    plt.imshow(img)
+    line, = plt.plot(xs,ys,'.-')
     plt.axis('off')
 
     interactive = LineBuilder(line,xs,ys,scanner)
     interactive.connect()
+    
     plt.show()
-    return scanner, xs, ys
 
 
-scan,xs,ys = main()
+main()
 
 
 

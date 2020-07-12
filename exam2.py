@@ -19,7 +19,7 @@ class Image:
         def cannyEdgeDetection(self,kernel=(5,5),sigma=0,minTh=100,maxTh=200):
             #Gaussian blurr
             Gblurr = cv.GaussianBlur(self.beGray(),kernel,sigma)
-
+            cv.imwrite('blurr.png',Gblurr)
             Cimg = cv.Canny(self.beGray(),minTh,maxTh)
             return Cimg
 

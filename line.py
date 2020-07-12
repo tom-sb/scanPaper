@@ -19,12 +19,15 @@ class LineBuilder:
                 'key_press_event',self.key_press)
 
     def key_press(self, event):
+    
         self.eventkey=event.key
         if self.eventkey == 'enter':
             points = np.column_stack((self.xs,self.ys))
             approx = np.array(points,dtype=np.float32)
             imgfinal = self.img1.transform(approx[:4,:4]);
-            cv.imwrite('outimg.png',imgfinal)
+            self.xs=[]
+            self.ys=[]
+            self.line.set_data([],[])
             plt.imshow(imgfinal)
             self.line.figure.canvas.draw()
 
@@ -51,21 +54,3 @@ class LineBuilder:
     def disconnect(self):
         self.line.figure.canvas.mpl_disconnect(self.cidpress)
 
-"""
-img = cv.imread('img1.png')
-orig = img.copy()
-img1 = Image(img)
-canny = img1.cannyEdgeDetection()
-target = img1.findcontours(canny)
-approx = img1.mapper(target)
-
-x,y = formA(np.array(approx))
-plt.imshow(img,zorder=0)
-line, = plt.plot(x,y,'.-')
-plt.axis('off')
-
-linebuilder = LineBuilder(line,x,y,img1)
-linebuilder.connect()
-
-plt.show()
-"""
