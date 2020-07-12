@@ -1,6 +1,7 @@
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
+from scipy.ndimage.filters import convolve
 
 def convolution(oldimg,kernel):
     heigh,width = oldimg.shape[0],oldimg.shape[1]
@@ -54,13 +55,15 @@ def GaussianFilter(img,kernel_size=5,sigma=1):
 
     kernel /= np.sum(kernel)
 
+    """
     img_filt = np.zeros_like(img, dtype=np.float32)
     if len(img.shape)==2:
         return convolution(img,kernel).astype(np.uint8)
     for c in range(3):
         img_filt[:,:,c] = convolution(img[:,:,c],kernel)
 
-    return img_filt.astype(np.uint8)
+    return img_filt.astype(np.uint8)"""
+    return convolve(img,kernel)
 
 if __name__=='__main__':
     img =cv.imread('img1.png',1)

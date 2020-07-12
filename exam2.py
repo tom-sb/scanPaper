@@ -2,6 +2,7 @@ import cv2 as cv
 import numpy as np
 from fractions import Fraction
 from matplotlib import pyplot as plt
+from gaussfilter import GaussianFilter
 
 class Image:
         def __init__(self,_image):
@@ -18,7 +19,8 @@ class Image:
 
         def cannyEdgeDetection(self,kernel=(5,5),sigma=0,minTh=100,maxTh=200):
             #Gaussian blurr
-            Gblurr = cv.GaussianBlur(self.beGray(),kernel,sigma)
+            #Gblurr = cv.GaussianBlur(self.beGray(),kernel,sigma)
+            Gblurr = GaussianFilter(self.beGray())
             cv.imwrite('blurr.png',Gblurr)
             Cimg = cv.Canny(self.beGray(),minTh,maxTh)
             return Cimg
