@@ -66,7 +66,7 @@ def GaussianFilter(img,kernel_size=5,sigma=1):
     return convolve(img,kernel)
 
 if __name__=='__main__':
-    img =cv.imread('img1.png',1)
+    img =cv.imread('img1.png',0)
     img=cv.cvtColor(img,cv.COLOR_BGR2GRAY) 
     Gimg = GaussianFilter(img,5,2)
     #Gim =cv.GaussianBlur(img,(5,5),2)

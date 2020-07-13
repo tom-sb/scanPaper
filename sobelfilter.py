@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 from scipy.ndimage.filters import convolve
+from gaussfilter import GaussianFilter
 
 #img en scala grises
 def SobelFilter(img):
@@ -14,14 +15,14 @@ def SobelFilter(img):
     G = np.hypot(G_x,G_y)
 
     G = G/G.max()*255
-    Theta = np.arctan2(G_y,G_x)
-
+    Theta = np.arctan2(G_y,G_x) * 180 /np.pi
     return G , Theta
 
 
 if __name__=='__main__':
     img = cv.imread('img1.png',0)
-
-    Gimg, Theta = SobelFilter(img)
+    Gaussimg = GaussianFilter(img,5,1)
+    Gimg, Theta = SobelFilter(Gaussimg)
 
     cv.imwrite('Gradiente.png',Gimg.astype(np.uint8))
+    cv.imwrite('Theta.png',Theta.astype(np.uint8))
