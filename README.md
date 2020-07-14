@@ -27,7 +27,7 @@ python main.py
 
 Imagen Original
 
-![scale = 0.5](https://raw.githubusercontent.com/tom-sb/scanPaper/master/img1.png)
+![scale = 0.3](https://raw.githubusercontent.com/tom-sb/scanPaper/master/img1.png)
 
 escaneando los borde caracteristico de la imagen
 ![](https://raw.githubusercontent.com/tom-sb/scanPaper/master/img1con.png)
