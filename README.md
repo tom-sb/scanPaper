@@ -29,10 +29,10 @@ Imagen Original
 ![](https://raw.githubusercontent.com/tom-sb/scanPaper/master/img1.png)
 
 escaneando los borde caracteristico de la imagen
-![](https://raw.githubusercontent.com/tom-sb/scanPaper/master/detectpoint.png)
+![](https://raw.githubusercontent.com/tom-sb/scanPaper/master/img1con.png)
 
 Salida de la imagen escaneado
-![](https://raw.githubusercontent.com/tom-sb/scanPaper/master/outimg.png)
+![](https://raw.githubusercontent.com/tom-sb/scanPaper/master/img1drop.png)
 
 ## Autores
 
