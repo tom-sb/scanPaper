@@ -16,10 +16,10 @@ class Image:
 
         def cannyEdgeDetection(self,kernel=(5,5),sigma=20,minTh=15,maxTh=21):
             #Cimg = cv.Canny(self.beGray(),minTh,maxTh)
-            Cimg = canny(self.beGray(),sigma=20,lowT=15,highT=21)
+            Cimg = canny(self.beGray(),sigma=24,lowT=15,highT=21)
             return Cimg
 
-        def findcontours(self,edge):
+        def findpoints(self,edge):
             contours,hierarchy = cv.findContours(edge,cv.RETR_LIST,
                     cv.CHAIN_APPROX_SIMPLE)
             contours = sorted(contours,key=cv.contourArea,reverse=True)

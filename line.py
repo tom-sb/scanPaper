@@ -28,7 +28,19 @@ class LineBuilder:
             self.xs=[]
             self.ys=[]
             self.line.set_data([],[])
-            plt.imshow(imgfinal)
+            plt.subplot(1,3,1),plt.imshow(imgfinal)
+            plt.axis('off')
+            plt.title('original')
+            gray = cv.cvtColor(imgfinal,cv.COLOR_BGR2GRAY)
+            plt.subplot(1,3,2),plt.imshow(gray,'gray')
+            plt.axis('off')
+            plt.title('escala grises')
+            (thresh, im_bw) = cv.threshold(gray, 128, 255,
+                    cv.THRESH_BINARY | cv.THRESH_OTSU) 
+
+            plt.subplot(1,3,3),plt.imshow(im_bw,'gray')
+            plt.axis('off')
+            plt.title('blanco y negro')
             self.line.figure.canvas.draw()
 
     def on_press(self, event):

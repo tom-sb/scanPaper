@@ -6,18 +6,18 @@ from exam2 import Image
 from line import LineBuilder
 
 def main():
-    img = cv.imread('img1.png')
+    img = cv.imread('test_img.jpg')
     
     scanner = Image(img)
     canny = scanner.cannyEdgeDetection()
-    target = scanner.findcontours(canny)
+    target = scanner.findpoints(canny)
     points = scanner.mapper(target)
 
     xs, ys = formA(np.array(points))
     plt.imshow(img)
     line, = plt.plot(xs,ys,'.-')
     plt.axis('off')
-
+    cv.imwrite('cannyimg.png',canny)
     interactive = LineBuilder(line,xs,ys,scanner)
     interactive.connect()
     
