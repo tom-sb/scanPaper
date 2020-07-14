@@ -37,7 +37,9 @@ Salida de la imagen escaneado
 
 ## Autores
 
--Dextre Aiquipa, Cristopher
--Soncco Lupa, Jean Carlos
--Villanueva Sanchez, Fernando
+-Cristopher Dextre Aiquipa
+
+-Carlos Soncco Lupa
+
+-Fernando Villanueva Sanchez
 
