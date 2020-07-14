@@ -40,7 +40,7 @@ def non_max_suppression(img,Angle):
 
 if __name__=='__main__':
     img = cv.imread('img1.png',0)
-    Gaussimg = GaussianFilter(img,5,15)
+    Gaussimg = GaussianFilter(img,5,20)
     Gimg , Theta = SobelFilter(Gaussimg)
 
     NMSimg = non_max_suppression(Gimg,Theta)
