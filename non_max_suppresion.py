@@ -9,8 +9,6 @@ def non_max_suppression(img,Angle):
     H, W = img.shape
     Z = np.zeros((H,W),dtype=np.int32)
 
-    #Angle[Angle < 0] +=180
-
     for i in range(1,H-1):
         for j in range(1,W-1):
             #angulo 0
