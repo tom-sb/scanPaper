@@ -36,16 +36,12 @@ def convolution(oldimg,kernel):
     return img_conv[h:h_end,w:w_end]
 
 def GaussianFunction(sigma,x,y):
-    if sigma==0:
-        return 0
-    num = np.exp(-((x*x) + (y*y))/(2*(sigma*sigma)))
-    den = 2*np.pi*(sigma*sigma)
-    return (1/den)*num
+    num = np.exp(-(((x**2) + (y**2))/(2.0*(sigma**2))))
+    den = 2.0*np.pi*(sigma**2)
+    return num/den
 
 
 def GaussianFilter(img,kernel_size=5,sigma=1):
-    if sigma == 0:
-        return img
     kernel = np.zeros((kernel_size,kernel_size),dtype=np.float32)
     m = n = kernel_size//2
 
@@ -53,8 +49,7 @@ def GaussianFilter(img,kernel_size=5,sigma=1):
         for y in range(-n,n+1):
             kernel[x+2,y+2] = GaussianFunction(sigma,x,y)
 
-    kernel /= np.sum(kernel)
-
+    print(kernel)
     """
     img_filt = np.zeros_like(img, dtype=np.float32)
     if len(img.shape)==2:
@@ -67,12 +62,9 @@ def GaussianFilter(img,kernel_size=5,sigma=1):
 
 if __name__=='__main__':
     img =cv.imread('img1.png',0)
-    img=cv.cvtColor(img,cv.COLOR_BGR2GRAY) 
-    Gimg = GaussianFilter(img,5,2)
-    #Gim =cv.GaussianBlur(img,(5,5),2)
-
-    Cimg = cv.Canny(Gimg,100,200)
-
+    Gimg = GaussianFilter(img,5,1)
+    Gim =cv.GaussianBlur(img,(5,5),1)
+    #Cimg = cv.Canny(Gimg,100,200)
     cv.imwrite('gimg.png',Gimg)
-    cv.imwrite('Cimg.png',Cimg)
+    cv.imwrite('Cimg.png',Gim)
 
