@@ -6,10 +6,14 @@ from exam2 import Image
 from line import LineBuilder
 
 def main():
-    img = cv.imread('test_img.jpg')
-    
+    #img = cv.imread('test_img.jpg')
+    #img = cv.imread('fot1.jpg')
+    img = cv.imread('fot2.jpg')
     scanner = Image(img)
-    canny = scanner.cannyEdgeDetection()
+    #canny = scanner.cannyEdgeDetection()
+    canny = scanner.cannyEdgeDetection(sigma=15,)
+    plt.imshow(canny)
+    plt.show()
     target = scanner.findpoints(canny)
     points = scanner.mapper(target)
 

@@ -16,7 +16,7 @@ class Image:
 
         def cannyEdgeDetection(self,kernel=(5,5),sigma=20,minTh=15,maxTh=21):
             #Cimg = cv.Canny(self.beGray(),minTh,maxTh)
-            Cimg = canny(self.beGray(),sigma=24,lowT=15,highT=21)
+            Cimg = canny(self.beGray(),sigma=sigma,lowT=minTh,highT=maxTh)
             return Cimg
 
         def findpoints(self,edge):
